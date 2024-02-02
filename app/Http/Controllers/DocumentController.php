@@ -14,8 +14,8 @@ class DocumentController extends Controller
     public function __construct()
     {
         // $this->apiKey = 'MGIwZDNmNzUtYWVmNi00ZDcyLTlmODYtNjNjMTk0MGM3Nzc0'; //pooja
-        $this->apiKey = 'NWIzNDA1MGQtMjViNy00YTI0LWJiYjEtYTc5OWZmZTE1MTUy'; //dhara
-        // $this->apiKey = 'Y2I3M2E3NjAtNzNiMy00ZmQyLThmZjgtNmQyYTA4YjNjMWQ2'; //sweety
+        // $this->apiKey = 'NWIzNDA1MGQtMjViNy00YTI0LWJiYjEtYTc5OWZmZTE1MTUy'; //dhara
+        $this->apiKey = 'Y2I3M2E3NjAtNzNiMy00ZmQyLThmZjgtNmQyYTA4YjNjMWQ2'; //sweety
     }
     public function showSendDocumentForm()
     {
@@ -129,6 +129,7 @@ class DocumentController extends Controller
         ])->get($url, [
             'page' => 1,
             'pagesize' => 30,
+            // 'Status' => 'Expired'
         ]);
         return view('document.list', ['response' => json_decode($response)]);
     }
@@ -194,7 +195,7 @@ class DocumentController extends Controller
         $url = "https://api.boldsign.com/v1/document/extendExpiry?documentId=$documentId";
 
         $postData = [
-            'newExpiryValue' => '2024-06-15'
+            'newExpiryValue' => '2024-03-20'
         ];
 
         $headers = [
@@ -205,6 +206,20 @@ class DocumentController extends Controller
         $response = Http::withHeaders($headers)
             ->patch($url, $postData);
         return $response->json();
+        // $responseData = $response->json();
+
+
+        // if ($response->successful()) {
+        //     return redirect()->back()->with('success', 'Document Expiry Extended');
+        // }
+        // if ($response->error()) {
+        //     return redirect()->back()->with('error', 'There is an Error');
+        // }
+        //  else {
+        //     return redirect()->back()->with('error');
+        // }
+
+        // return redirect()->back()->with('success', 'Document Expiry Extended');
     }
     public function behalfList()
     {

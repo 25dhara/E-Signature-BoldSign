@@ -73,7 +73,7 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            {{-- @if (session()->has('success'))
+            @if (session()->has('success'))
                 <div class="alert alert-success" role="alert">
                     {{ session('success') }}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -81,16 +81,16 @@
                     </button>
                 </div>
             @endif
-            @if (session()->has('danger'))
+            @if (session()->has('error'))
                 <div class="alert alert-danger">
-                    {{ session('danger') }}
+                    {{ session('error') }}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
             @endif
             <div id="success-message" class="alert alert-success" role="alert" style="display: none;"></div>
-            <div id="danger-message" class="alert alert-danger" role="alert" style="display: none;"></div> --}}
+            <div id="danger-message" class="alert alert-danger" role="alert" style="display: none;"></div>
             @yield('content')
         </div>
 

@@ -26,7 +26,7 @@ Route::get('/listDocument', [DocumentController::class, 'listDocument'])->name('
 Route::get('/download-pdf',         [DocumentController::class, 'downloadPdf'])->name('download-pdf');
 Route::post('/revokeDocument',       [DocumentController::class, 'revokeDocument']);
 Route::post('/sendRemind',          [DocumentController::class, 'sendRemind']);
-Route::get('/extendExpiry',         [DocumentController::class, 'extendExpiry']);
+Route::post('/extendExpiry',         [DocumentController::class, 'extendExpiry']);
 
 Route::get('/behalfList',         [DocumentController::class, 'behalfList'])->name('behalfList');
 

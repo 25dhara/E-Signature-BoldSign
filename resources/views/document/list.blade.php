@@ -11,6 +11,7 @@
                     </div>
                 </div>
             </div>
+
             <!-- /.container-fluid -->
         </section>
         <!-- Main content -->
@@ -29,6 +30,7 @@
                                             <th>Activity Date</th>
                                             <th>Activity By</th>
                                             <th>Title</th>
+                                            <th>Expires in</th>
                                             <th>Status</th>
                                             <th style="width: 170px;">Download</th>
                                         </tr>
@@ -38,10 +40,25 @@
                                             <tr>
                                                 <td>{{ $document->documentId }}</td>
                                                 <td>{{ $document->senderDetail->name }}</td>
-                                                <td>{{ date('Y-m-d H:i:s', $document->createdDate) }}</td>
-                                                <td>{{ date('Y-m-d H:i:s', $document->activityDate) }}</td>
+                                                <td>{{ date('d-m-Y H:i:s', $document->createdDate) }}</td>
+                                                <td>{{ date('d-m-Y H:i:s', $document->activityDate) }}</td>
                                                 <td>{{ $document->activityBy }}</td>
                                                 <td>{{ $document->messageTitle }}</td>
+                                                <td>
+                                                    @php
+                                                        $today_date = new DateTime();
+                                                        $expiry_date = new DateTime();
+                                                        $expiry_date->setTimestamp($document->expiryDate);
+
+                                                        if ($expiry_date > $today_date) {
+                                                            $difference = $today_date->diff($expiry_date);
+                                                            echo $difference->format('%a days');
+                                                        } else {
+                                                            echo 'Expired';
+                                                        }
+                                                    @endphp
+                                                </td>
+
                                                 <td>{{ $document->status }}</td>
                                                 <td>
                                                     <div class="d-flex flex-column align-items-start">
@@ -57,7 +74,7 @@
                                                             <input type="hidden" name="documentId"
                                                                 value="{{ $document->documentId }}">
                                                             <button type="submit" class="btn btn-link">Revoke
-                                                                </button>
+                                                            </button>
                                                         </form>
                                                         @if ($document->status != 'Completed')
                                                             <form method="POST" action="{{ url('sendRemind') }}">
