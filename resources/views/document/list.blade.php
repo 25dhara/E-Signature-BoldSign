@@ -44,7 +44,8 @@
                                                 <td>{{ date('d-m-Y H:i:s', $document->activityDate) }}</td>
                                                 <td>{{ $document->activityBy }}</td>
                                                 <td>{{ $document->messageTitle }}</td>
-                                                <td>
+                                                <td>{{ date('d-m-Y', $document->expiryDate) }}</td>
+                                                {{-- <td>
                                                     @php
                                                         $today_date = new DateTime();
                                                         $expiry_date = new DateTime();
@@ -57,7 +58,7 @@
                                                             echo 'Expired';
                                                         }
                                                     @endphp
-                                                </td>
+                                                </td> --}}
 
                                                 <td>{{ $document->status }}</td>
                                                 <td>
@@ -91,6 +92,10 @@
                                                                     value="{{ $document->documentId }}">
                                                                 <button type="submit" class="btn btn-link">Extend
                                                                     Expiry</button>
+
+                                                                <input type="date" id="expiry_date" name="expiry_date"
+                                                                    class="form-control" autocomplete="off">
+
                                                             </form>
                                                         @endif
 

@@ -192,34 +192,20 @@ class DocumentController extends Controller
     public function extendExpiry(Request $request)
     {
         $documentId = $request->input('documentId');
+        $expirydate = $request->input('expiry_date');
+
         $url = "https://api.boldsign.com/v1/document/extendExpiry?documentId=$documentId";
 
         $postData = [
-            'newExpiryValue' => '2024-03-20'
+            'newExpiryValue' => $expirydate
         ];
-
         $headers = [
             'X-API-KEY' => $this->apiKey,
             'Content-Type' => 'application/json',
         ];
-
         $response = Http::withHeaders($headers)
             ->patch($url, $postData);
         return $response->json();
-        // $responseData = $response->json();
-
-
-        // if ($response->successful()) {
-        //     return redirect()->back()->with('success', 'Document Expiry Extended');
-        // }
-        // if ($response->error()) {
-        //     return redirect()->back()->with('error', 'There is an Error');
-        // }
-        //  else {
-        //     return redirect()->back()->with('error');
-        // }
-
-        // return redirect()->back()->with('success', 'Document Expiry Extended');
     }
     public function behalfList()
     {
